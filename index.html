@@ -143,13 +143,7 @@
   .hero-bg-cell::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(135deg,rgba(201,168,76,0.05) 0%,transparent 60%);
-    z-index: 1;
   }
-  .hero-media {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; opacity: 0; transition: opacity 1.2s ease;
-  }
-  .hero-media.loaded { opacity: 1; }
   .panel-1 { background: linear-gradient(135deg,#1a1208,#0f0a03); animation: panelPulse 8s ease-in-out infinite; }
   .panel-2 { background: linear-gradient(135deg,#0a0f1a,#03080f); animation: panelPulse 10s ease-in-out 2s infinite; }
   .panel-3 { background: linear-gradient(135deg,#0f1a0a,#080f03); animation: panelPulse 12s ease-in-out 4s infinite; }
@@ -354,19 +348,6 @@
     line-height: 1.3;
   }
 
-  .film-reactions { display: flex; gap: 8px; margin-top: 8px; }
-  .mini-reaction {
-    display: flex; align-items: center; gap: 5px;
-    background: rgba(0,0,0,0.45); border: 1px solid var(--border);
-    color: var(--text); font-size: 11px; padding: 5px 11px;
-    border-radius: 20px; cursor: pointer; font-family: 'Cairo', sans-serif;
-    transition: all 0.2s; line-height: 1;
-  }
-  .mini-reaction svg { width: 13px; height: 13px; flex-shrink: 0; }
-  .mini-reaction:hover { border-color: var(--gold); }
-  .mini-reaction.like.active { background: var(--gold); color: var(--black); border-color: var(--gold); }
-  .mini-reaction.dislike.active { background: #b33636; color: #fff; border-color: #b33636; }
-
   /* شارة VIDEO */
   .film-video-badge {
     position: absolute; top: 10px; left: 10px;
@@ -418,64 +399,6 @@
     cursor: pointer; font-size: 22px; line-height: 1; z-index: 1;
     font-family: 'Space Grotesk', sans-serif;
   }
-
-  /* ── IMAGE LIGHTBOX ── */
-  .image-lightbox {
-    position: fixed; inset: 0; z-index: 9500;
-    background: rgba(8,8,8,0.86);
-    -webkit-backdrop-filter: blur(22px); backdrop-filter: blur(22px);
-    display: none; align-items: center; justify-content: center;
-    padding: clamp(16px,4vw,40px);
-  }
-  .image-lightbox.open { display: flex; }
-  .image-lightbox-stage {
-    position: relative; max-width: 100%; max-height: 100%;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .image-lightbox img {
-    max-width: 100%; max-height: 80vh; object-fit: contain;
-    border-radius: 4px; box-shadow: 0 0 80px rgba(201,168,76,0.12);
-    -webkit-user-select: none; user-select: none;
-    -webkit-user-drag: none;
-    display: block;
-    animation: lightboxZoom 0.35s ease;
-  }
-  @keyframes lightboxZoom {
-    from { opacity: 0; transform: scale(0.92); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-
-  .heart-burst {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%,-50%) scale(0.3);
-    font-size: clamp(64px,14vw,140px);
-    color: #fff; opacity: 0; pointer-events: none; z-index: 5;
-    filter: drop-shadow(0 4px 24px rgba(0,0,0,0.5));
-  }
-  .heart-burst.animate { animation: heartPop 0.9s ease forwards; }
-  @keyframes heartPop {
-    0%   { opacity: 0; transform: translate(-50%,-50%) scale(0.3); }
-    18%  { opacity: 1; transform: translate(-50%,-50%) scale(1.15); }
-    35%  { transform: translate(-50%,-50%) scale(0.95); }
-    100% { opacity: 0; transform: translate(-50%,-50%) scale(1.35); }
-  }
-
-  .lightbox-reactions {
-    position: absolute; bottom: clamp(20px,4vw,40px); left: 50%;
-    transform: translateX(-50%);
-    display: flex; gap: 14px; z-index: 2; white-space: nowrap;
-  }
-  .reaction-btn {
-    display: flex; align-items: center; gap: 8px;
-    background: rgba(20,20,20,0.85); border: 1px solid var(--border);
-    color: var(--text); padding: 10px 22px; border-radius: 30px;
-    font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600;
-    cursor: pointer; transition: all 0.25s;
-  }
-  .reaction-btn svg { width: 18px; height: 18px; }
-  .reaction-btn:hover { border-color: var(--gold); }
-  .reaction-btn.like-btn.active { background: var(--gold); color: var(--black); border-color: var(--gold); }
-  .reaction-btn.dislike-btn.active { background: #b33636; color: #fff; border-color: #b33636; }
 
   /* Loading state للـ filmstrip */
   .filmstrip-loading {
@@ -846,17 +769,17 @@
 <section class="hero" id="home">
   <div class="hero-bg">
     <div class="hero-bg-col">
-      <div class="hero-bg-cell panel-1" id="heroCell1"></div>
-      <div class="hero-bg-cell panel-2" id="heroCell2"></div>
+      <div class="hero-bg-cell panel-1"></div>
+      <div class="hero-bg-cell panel-2"></div>
     </div>
     <div class="hero-bg-col">
-      <div class="hero-bg-cell panel-3" id="heroCell3"></div>
-      <div class="hero-bg-cell panel-4" id="heroCell4"></div>
-      <div class="hero-bg-cell panel-5" id="heroCell5"></div>
+      <div class="hero-bg-cell panel-3"></div>
+      <div class="hero-bg-cell panel-4"></div>
+      <div class="hero-bg-cell panel-5"></div>
     </div>
     <div class="hero-bg-col">
-      <div class="hero-bg-cell panel-6" id="heroCell6"></div>
-      <div class="hero-bg-cell panel-1" id="heroCell7"></div>
+      <div class="hero-bg-cell panel-6"></div>
+      <div class="hero-bg-cell panel-1"></div>
     </div>
   </div>
   <div class="hero-overlay"></div>
@@ -1004,15 +927,15 @@
     <div class="stat-label">عمل منشور</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num" id="statLikes">0</div>
-    <div class="stat-label">إعجاب</div>
+    <div class="stat-num" data-target="5">0</div>
+    <div class="stat-label">سنوات خبرة</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num" id="statPhotos">0</div>
+    <div class="stat-num" data-target="1200">0</div>
     <div class="stat-label">صورة ملتقطة</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num" id="statSatisfaction">0</div>
+    <div class="stat-num" data-target="98">0</div>
     <div class="stat-label">نسبة الرضا %</div>
   </div>
 </div>
@@ -1146,25 +1069,6 @@
   <video id="lightboxVideo" playsinline controls></video>
 </div>
 
-<!-- Image Lightbox -->
-<div class="image-lightbox" id="imageLightbox" onclick="if(event.target===this) closeImageLightbox()">
-  <div class="video-lightbox-close" onclick="closeImageLightbox()">&#10005;</div>
-  <div class="image-lightbox-stage">
-    <img id="lightboxImage" src="" alt="" ondblclick="handleImageDoubleClick(event)">
-    <div class="heart-burst" id="heartBurst">&#10084;</div>
-  </div>
-  <div class="lightbox-reactions">
-    <button class="reaction-btn like-btn" id="lightboxLikeBtn" onclick="toggleReaction(currentLightboxPostId,'like')">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.2-4.5-9.6-8.8C.8 9 2.4 5.3 6 5.3c2.1 0 3.7 1.1 6 3.6 2.3-2.5 3.9-3.6 6-3.6 3.6 0 5.2 3.7 3.6 6.9C19.2 16.5 12 21 12 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-      <span id="lightboxLikeCount">0</span>
-    </button>
-    <button class="reaction-btn dislike-btn" id="lightboxDislikeBtn" onclick="toggleReaction(currentLightboxPostId,'dislike')">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3s7.2 4.5 9.6 8.8c1.6 3.2 0 6.9-3.6 6.9-2.1 0-3.7-1.1-6-3.6-2.3 2.5-3.9 3.6-6 3.6-3.6 0-5.2-3.7-3.6-6.9C4.8 7.5 12 3 12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-      <span id="lightboxDislikeCount">0</span>
-    </button>
-  </div>
-</div>
-
 <script>
   // ══════════════════════════════════════════
   // SUPABASE CONFIG
@@ -1251,34 +1155,15 @@
              loading="lazy"
              onload="this.previousElementSibling && (this.previousElementSibling.classList.add('hidden'))"
              onerror="this.style.display='none'"
-             onclick="openImageLightbox('${safeUrl}', ${post.id})"
            >
          </div>`;
 
-    const counts  = reactionsMap[post.id] || { like: 0, dislike: 0 };
-    const userR   = userReactions[post.id];
-    const likeActive    = userR === 'like'    ? ' active' : '';
-    const dislikeActive = userR === 'dislike' ? ' active' : '';
-
-    const reactionsHtml = `
-        <div class="film-reactions">
-          <button class="mini-reaction like${likeActive}" data-post-id="${post.id}" onclick="event.stopPropagation(); toggleReaction(${post.id},'like')">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.2-4.5-9.6-8.8C.8 9 2.4 5.3 6 5.3c2.1 0 3.7 1.1 6 3.6 2.3-2.5 3.9-3.6 6-3.6 3.6 0 5.2 3.7 3.6 6.9C19.2 16.5 12 21 12 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-            <span class="count">${counts.like}</span>
-          </button>
-          <button class="mini-reaction dislike${dislikeActive}" data-post-id="${post.id}" onclick="event.stopPropagation(); toggleReaction(${post.id},'dislike')">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3s7.2 4.5 9.6 8.8c1.6 3.2 0 6.9-3.6 6.9-2.1 0-3.7-1.1-6-3.6-2.3 2.5-3.9 3.6-6 3.6-3.6 0-5.2-3.7-3.6-6.9C4.8 7.5 12 3 12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-            <span class="count">${counts.dislike}</span>
-          </button>
-        </div>`;
-
     return `
-      <div class="film-card${isVideo ? ' video-card' : ''}" data-post-id="${post.id}">
+      <div class="film-card${isVideo ? ' video-card' : ''}">
         ${imgOrVideo}
         <div class="film-label">
           <span class="film-label-cat">${post.category || 'أخرى'}</span>
           <span class="film-label-name">${caption}</span>
-          ${reactionsHtml}
         </div>
       </div>`;
   }
