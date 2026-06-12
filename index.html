@@ -1204,14 +1204,21 @@
 
   // تخزين تفاعلات المستخدم محلياً (إعجاب / عدم إعجاب) — لكل عمل
   const REACTIONS_KEY = 'mogtaba_reactions_v1';
+  let userReactions = {};
   function loadReactions() {
-    try { return JSON.parse(localStorage.getItem(REACTIONS_KEY) || '{}'); }
-    catch(e) { return {}; }
+    try {
+      if (typeof localStorage === 'undefined') return {};
+      const raw = localStorage.getItem(REACTIONS_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch(e) { return {}; }
   }
   function saveReactions(r) {
-    try { localStorage.setItem(REACTIONS_KEY, JSON.stringify(r)); } catch(e) {}
+    try {
+      if (typeof localStorage === 'undefined') return;
+      localStorage.setItem(REACTIONS_KEY, JSON.stringify(r));
+    } catch(e) {}
   }
-  let userReactions = loadReactions();
+  try { userReactions = loadReactions(); } catch(e) { userReactions = {}; }
 
   // خريطة التصنيفات العربية → إنجليزي للـ icon sub
   const catMap = {
@@ -1380,7 +1387,7 @@
       setCategoryImages(data);
 
       // تحديث صور/فيديوهات الهيرو من الأعمال الحقيقية
-      setHeroMedia(data);
+      try { setHeroMedia(data); } catch(e) { console.error('hero media error', e); }
 
       // تحديث stat العدد الكلي
       animateCounter(document.getElementById('statTotal'), data.length);
@@ -1390,7 +1397,7 @@
       animateCounter(document.getElementById('statImages'), imageCount);
 
       // إحصائيات الإعجاب / عدم الإعجاب / نسبة الرضا
-      updateLikeStats(data);
+      try { updateLikeStats(data); } catch(e) { console.error('like stats error', e); }
 
       // drag scroll
       initDrag(track);
